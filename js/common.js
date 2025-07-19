@@ -36,7 +36,7 @@ class PaintTopicData {
 
   NavigateViewTopic(topicid) {
     localStorage.setItem("SelectedTopic", topicid);
-    window.location.href = "/viewnotes.html";
+    window.location.href = "https://udhayakumarp.github.io/notesapp/viewnotes.html";
   }
 
   paintViewTopic() {
