@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Notes</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" src="/js/firebase-config.js"></script>
+    <script src="/js/common.js"></script>
+  </head>
+  <body>
+    <div class="main container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="container mx-auto p-4">
+        <div class="flex justify-between box-border border-b-1">
+          <div class="flex w-[50% - 12px] mb-2">
+            <a
+              href="/index.html"
+              class="float-right box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
+              >Back</a
+            >
+          </div>
+          <div class="flex align-center w-[50% - 12px]">
+            <i class="fa-solid fa-circle-user text-2xl cursor-pointer"></i>
+          </div>
+        </div>
+        <div class="mt-2">
+          <h3 class="text-md font-bold float-left">Add New Topic:</h3>
+        </div>
+      </div>
+      <!-- End of Header -->
+
+      <!-- Add New Notes -->
+      <div class="container mx-auto p-4">
+        <form id="AddNoteForm" action="HandleFormSubmission">
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto max-w-5xl mt-2 p-6 box-border border-1 border-gray-200 rounded-md"
+          >
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Topic Title
+              </label>
+              <input
+                type="text"
+                id="topicTitle"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Topic Title"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Category
+              </label>
+              <div class="relative">
+                <select
+                  class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 req-field"
+                  onchange="HandleTechStackCategory()"
+                  id="topicTechStack"
+                >
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="React">React</option>
+                  <option value="TypeScript">TypeScript</option>
+                  <option value="Flutter">Flutter</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                >
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group col-span-1 md:col-span-2 hidden"
+              id="AddNewTechStackRow"
+            >
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Add New Category
+              </label>
+              <input
+                type="text"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full"
+                placeholder="Enter Topic Title"
+                id="AddNewTechStack"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Definition
+              </label>
+              <textarea
+                id="topicDefinition"
+                rows="4"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Topic Definition"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Your Understanding About Topic
+              </label>
+              <textarea
+                id="topicUnderstanding"
+                rows="4"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Your Understanding About Topic"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Sources
+              </label>
+              <input
+                type="text"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Topic Sources"
+                id="topicSource"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                YouTube Link
+              </label>
+              <input
+                type="text"
+                class="border-1 border-gray-200 rounded px-3 py-2 w-full req-field"
+                placeholder="Enter YouTube Link"
+                id="topicYouTubeID"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <button
+                class="flex-shrink-0 bg-white hover:bg-black border-black cursor-pointer hover:text-white text-md border-1 text-black py-1 px-4 rounded"
+                type="button"
+                onClick="HandleFormFields.onFormSubmit('AddNoteForm')"
+              >
+                Add
+              </button>
+              <a
+                href="./index.html"
+                class="flex-shrink-0 border-transparent cursor-pointer text-black hover:opacity-80 text-md py-1 px-2 rounded"
+                >Cancel</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End of Add New Notes -->
+
+      <!--  Topic Added modal-->
+      <div
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        id="topicAddedModal"
+      >
+        <!-- Modal Box -->
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+          <h2 class="text-xl font-semibold mb-4 flex align-center gap-2">
+            <i class="fa-solid fa-circle-check text-green-700 text-3xl"></i>
+            Success
+          </h2>
+          <p class="mb-4">Topic Details Added Successfully</p>
+          <button
+            onclick="closeModal()"
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl cursor-pointer"
+          >
+            <i class="fa-solid fa-circle-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <!-- End of Topic Added modal -->
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        document.getElementById("topicAddedModal").style.display = "none";
+        localStorage.setItem("SelectedTopic", "");
+      });
+
+      function HandleTechStackCategory() {
+        if ($("select#topicTechStack").val() === "Other") {
+          $("#AddNewTechStackRow").removeClass("hidden");
+          $("#AddNewTechStack").addClass("req-field");
+        } else {
+          $("#AddNewTechStackRow").addClass("hidden");
+          $("#AddNewTechStack")
+            .removeClass("req-field")
+            .removeClass("border-red-500");
+        }
+      }
+
+      function HandleFormSubmission() {
+        window.newTopicData.topicTitle = $("#topicTitle").val();
+        window.newTopicData.topicTechStack = $("#topicTechStack").val();
+        window.newTopicData.topicDefinition = $("#topicDefinition").val();
+        window.newTopicData.topicUnderstanding = $("#topicUnderstanding").val();
+        window.newTopicData.topicSource = $("#topicSource").val();
+        window.newTopicData.topicYouTubeID = $("#topicYouTubeID").val();
+
+        if ($("select#topicTechStack").val() === "Other") {
+          window.newTopicData.topicTechStack = $("#AddNewTechStack").val();
+        }
+
+        window.HandleFirebaseDB.AddTopic();
+      }
+
+      function closeModal() {
+        window.location.href = "/index.html";
+      }
+    </script>
+  </body>
+</html>

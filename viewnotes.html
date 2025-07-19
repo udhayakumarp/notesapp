@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Notes</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" src="/js/firebase-config.js"></script>
+    <script src="/js/common.js"></script>
+  </head>
+  <body>
+    <div class="main container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="container mx-auto p-4">
+        <div class="flex justify-between box-border border-b-1">
+          <div class="flex w-[50% - 12px] mb-2">
+            <a
+              href="/index.html"
+              class="float-right box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
+              >Back</a
+            >
+          </div>
+          <div class="flex align-center w-[50% - 12px]">
+            <i class="fa-solid fa-circle-user text-2xl cursor-pointer"></i>
+          </div>
+        </div>
+      </div>
+      <!-- End of Header -->
+
+      <div
+        class="container max-w-6xl pt-0 p-4 mx-auto grid grid-cols-1 md:grid-cols-4"
+      >
+        <!-- Add View Notes -->
+        <div
+          class="col-span-3 box-border sm:border-r-1 sm:pr-3 sm:mr-2 sm:max-h-[85vh] sm:overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+        >
+          <div class="grid grid-cols-12">
+            <div class="col-span-10">
+              <h3 id="topicTitleTxt" class="text-2xl font-bold">Topic Title</h3>
+              <p class="text-gray-500 text-sm">
+                Tech Stack:
+                <span id="topicTechStackTxt" class="font-bold">JavaScript</span>
+              </p>
+            </div>
+            <div class="col-span-2">
+              <a
+                href="/editnote.html"
+                class="float-right text-xl sm:text-sm sm:box-border sm:border-1 sm:px-4 sm:rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span class="hidden sm:contents">Edit</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h3 class="text-md font-bold">Definition</h3>
+            <p class="text-md" id="topicDefinitionTxt">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged.
+            </p>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-md font-bold">
+              Your Understanding About this Topic
+            </h3>
+            <p class="text-md" id="topicUserUnderstandingTxt">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged.
+            </p>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-md font-bold">Source</h3>
+            <p class="text-md" id="topicSourceTxt">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.
+            </p>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-md font-bold">YouTube</h3>
+            <div id="topicYoutubeRow">
+              <iframe
+                id="topicYoutubeId"
+                width="100%"
+                height="523"
+                src="https://www.youtube.com/embed/PkZNo7MFNFg"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <!-- End of View New Notes -->
+        <!-- you view on this topic -->
+        <div
+          class="mt-2 sm:mt-0 box-border border-t-1 sm:border-0 p-4 sm:p-2 sm:pt-0"
+        >
+          <h3 class="text-2xl font-bold">Your view on this Topic</h3>
+          <div class="mt-2">
+            <ul class="flex flex-wrap gap-4">
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicCompletedCB"
+                      aria-describedby="topicCompletedCB-text"
+                      type="checkbox"
+                      value=""
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label for="topicCompletedCB" class="font-medium text-black"
+                      >Completed</label
+                    >
+                    <p
+                      id="topicCompletedCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Completely Understood the Topic
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicParkedCB"
+                      aria-describedby="topicParkedCB-text"
+                      type="checkbox"
+                      value=""
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label for="topicParkedCB" class="font-medium text-black"
+                      >Parked for Later</label
+                    >
+                    <p
+                      id="topicParkedCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Saved this Topic to view for later
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicNeedClarificationCB"
+                      aria-describedby="topicNeedClarificationCB-text"
+                      type="checkbox"
+                      value=""
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label
+                      for="topicNeedClarificationCB"
+                      class="font-medium text-black"
+                      >Need Clarification</label
+                    >
+                    <p
+                      id="topicNeedClarificationCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Partially Completed, need Clarification for complete
+                      Understanding
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicReadyFInterviewCB"
+                      aria-describedby="topicReadyFInterviewCB-text"
+                      type="checkbox"
+                      value=""
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label
+                      for="topicReadyFInterviewCB"
+                      class="font-medium text-black"
+                      >Ready For Interview</label
+                    >
+                    <p
+                      id="topicReadyFInterviewCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Completely Understood and able to answer this Topic on
+                      Interview
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicHandsOnNeededCB"
+                      aria-describedby="topicHandsOnNeededCB-text"
+                      type="checkbox"
+                      value=""
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label
+                      for="topicHandsOnNeededCB"
+                      class="font-medium text-black"
+                      >HandsOn Needed</label
+                    >
+                    <p
+                      id="topicHandsOnNeededCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Understood the Topic, may need hands on.
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="form-group mt-4">
+              <button
+                class="flex-shrink-0 bg-white hover:bg-black border-black cursor-pointer hover:text-white text-sm border-1 text-black py-1 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+                type="button"
+                onclick="HandleYourViewOnTopicSubmission()"
+              >
+                Update
+              </button>
+              <button
+                class="flex-shrink-0 border-transparent cursor-pointer text-black hover:opacity-80 text-sm py-1 px-2 rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+                type="button"
+                disabled
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- End of you view on this topic -->
+      </div>
+    </div>
+
+    <!-- Update Topic view -->
+    <div
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      id="topicEditedModal"
+    >
+      <!-- Modal Box -->
+      <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+        <h2 class="text-xl font-semibold mb-4 flex align-center gap-2">
+          <i class="fa-solid fa-circle-check text-green-700 text-3xl"></i>
+          Success
+        </h2>
+        <p class="mb-4">Topic Details Updated Successfully</p>
+        <button
+          onclick="closeModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl cursor-pointer"
+        >
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <!-- End of Update Topic view -->
+
+    <script>
+      $(document).ready(function () {
+        closeModal();
+      });
+
+      function HandleYourViewOnTopicSubmission() {
+        window.YourViewOnTopicData.topicCompleted =
+          $("#topicCompletedCB").is(":checked");
+        window.YourViewOnTopicData.topicParked =
+          $("#topicParkedCB").is(":checked");
+        window.YourViewOnTopicData.topicNeedClarification = $(
+          "#topicNeedClarificationCB"
+        ).is(":checked");
+        window.YourViewOnTopicData.topicHandsOnNeeded = $(
+          "#topicHandsOnNeededCB"
+        ).is(":checked");
+        window.YourViewOnTopicData.topicReadyForInterview = $(
+          "#topicReadyFInterviewCB"
+        ).is(":checked");
+
+        window.HandleFirebaseDB.UpdateYourViewOnTopic();
+      }
+
+      // Open and Close modal
+      function openModal() {
+        document.getElementById("topicEditedModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("topicEditedModal").style.display = "none";
+      }
+      // end of Open and Close modal
+    </script>
+  </body>
+</html>
