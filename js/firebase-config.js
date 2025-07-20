@@ -92,12 +92,14 @@ class HandleFirebase {
           window.TopicData = Object.values(window.TopicData).filter(
             (items) => items.userId === localStorage.getItem("username")
           );
-          HandlePaintData.PaintUserTopic();
+          $("#TopicsCount").text(window.TopicData.length);
+          // HandlePaintData.PaintUserTopic();
+          HandlePaintData.PaintCoveredTechStack();
           if (localStorage.getItem("SelectedTopic")) {
             HandlePaintData.paintViewTopic();
           }
           HandlePaintData.PaintTechStackCategoryDropdown();
-          console.log("User data:", snapshot.val());
+          // console.log("User data:", snapshot.val());
         } else {
           console.log("No data available");
         }

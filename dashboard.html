@@ -31,7 +31,7 @@
           </div>
           <div class="flex align-center w-[50% - 12px]">
             <i class="fa-solid fa-circle-user text-2xl cursor-pointer mr-4"></i>
-            <span onclick="HandleUserSession.SessionLogout()"
+            <span onclick="HandleUserSession.SessionLogout();"
               ><i
                 class="fa-solid fa-right-from-bracket text-2xl cursor-pointer"
               ></i
@@ -39,7 +39,16 @@
           </div>
         </div>
         <div class="mt-2">
-          <h3 class="text-md font-bold float-left">Topics:</h3>
+          <h3 class="text-md font-bold float-left" id="NoOfTopicHead">
+            No of Topics: <span id="TopicsCount">0</span>
+          </h3>
+          <button
+            id="backToCoveredTop"
+            onclick="HandleBackToTechStack();"
+            class="hidden box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
+          >
+            Back
+          </button>
           <a
             href="./addnotes.html"
             class="float-right box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
@@ -49,10 +58,37 @@
       </div>
       <!-- End of Header -->
 
-      <!-- List of Topic -->
-      <div class="container mx-auto mt-8 px-4">
+      <!-- TechStack Covered -->
+      <div class="container mx-auto mt-8 px-4" id="ViewTechStackCoveredRow">
         <ul
           class="grid grid-cols-1 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+          id="techstack-covered-list"
+        >
+          <li>
+            <div
+              class="shadow-lg cursor-pointer relative"
+              onclick="window.location.href='./addnotes.html'"
+            >
+              <img src="./images/techstack/addtechstackbg.jpg" alt="" />
+              <div
+                class="absolute flex flex-col top-0 left-0 text-center align-center w-full"
+              >
+                <i class="fa-solid fa-circle-plus text-xl mt-6"></i>
+                <p class="font-bold text-xl mt-1 min-h-full">Add Topic</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- End of TechStack Covered -->
+
+      <!-- List of Topic -->
+      <div class="container mx-auto mt-0 px-4 hidden" id="ViewUserTopicRow">
+        <h2 class="text-xl font-bold">
+          <span id="techstackTopicsHead"></span> Topics:
+        </h2>
+        <ul
+          class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
           id="notes-data-list"
         >
           <li></li>
@@ -65,12 +101,12 @@
       $(function () {
         if (!localStorage.getItem("username")) {
           window.location.href = "index.html";
+          HandlePaintData.PaintCoveredTechStack();
         }
       });
 
       $(document).ready(function () {
         closeModal();
-        HandleUserSession.LoggedUser();
       });
 
       // Open and Close modal
@@ -82,6 +118,11 @@
         document.getElementById("customModal").style.display = "none";
       }
       // end of Open and Close modal
+
+      function HandleBackToTechStack() {
+        $("#ViewUserTopicRow, #backToCoveredTop").addClass("hidden");
+        $("#ViewTechStackCoveredRow, #NoOfTopicHead").removeClass("hidden");
+      }
     </script>
   </body>
 </html>

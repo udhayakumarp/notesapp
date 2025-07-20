@@ -20,11 +20,66 @@ class ValidFormFields {
 }
 
 class PaintTopicData {
-  PaintUserTopic() {
+  PaintCoveredTechStack() {
+    if (window.TopicData.length) {
+      $("#techstack-covered-list").empty();
+      $.each(window.TopicData, function (i, item) {
+        let category = item.topicTechStack;
+        window.TechStackCovered[category] =
+          (window.TechStackCovered[category] || 0) + 1;
+      });
+
+      $.map(window.TechStackCovered, function (count, category) {
+        $("#techstack-covered-list").append(`<li>
+            <div class="shadow-lg cursor-pointer relative" onclick="HandlePaintData.PaintSelectedTechStack('${category}');">
+              <img src="./images/techstack/${category.toLowerCase()}.jpg" alt="" />
+              <div
+                class="absolute bottom-2 right-0 pr-2 text-right block w-full"
+              >
+                <p class="font-bold text-2xl">${count
+                  .toString()
+                  .padStart(2, "0")}</p>
+              </div>
+            </div>
+          </li>`);
+      });
+
+      window.TechStackCovered = $.map(
+        window.TechStackCovered,
+        function (count, category) {
+          return { category: category, count: count };
+        }
+      );
+
+      if (window.TechStackCovered.length < 5) {
+        $("#techstack-covered-list").append(`<li>
+            <div class="shadow-lg cursor-pointer relative" onclick="window.location.href='./addnotes.html'">
+              <img src="./images/techstack/addtechstackbg.jpg" alt="" />
+              <div
+                class="absolute flex flex-col top-0 left-0 text-center align-center w-full"
+              >
+                <i class="fa-solid fa-circle-plus text-xl mt-6"></i>
+                <p class="font-bold text-xl mt-1 min-h-full">Add Topic</p>
+              </div>
+            </div>
+          </li>`);
+      }
+    }
+  }
+
+  PaintSelectedTechStack(selectedTechStack) {
+    $("#ViewUserTopicRow, #backToCoveredTop").removeClass("hidden");
+    $("#ViewTechStackCoveredRow, #NoOfTopicHead").addClass("hidden");
+    HandlePaintData.PaintUserTopic(selectedTechStack);
+    $("#techstackTopicsHead").text(selectedTechStack);
+  }
+
+  PaintUserTopic(selectedTechStack) {
     $("#notes-data-list").empty();
     const notesDate = window.TopicData;
     $.each(notesDate, function (index, topic) {
-      $("#notes-data-list").append(`<div
+      if (selectedTechStack === topic.topicTechStack)
+        $("#notes-data-list").append(`<div
                 class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
                 onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
               >
@@ -150,6 +205,7 @@ window.EditTopicData = [];
 window.YourViewOnTopicData = [];
 window.TopicData = [];
 window.LoginformData = [];
+window.TechStackCovered = {};
 window.RegisterformData = [];
 window.SessionUserData = [];
 window.UserAvailCheck = false;
