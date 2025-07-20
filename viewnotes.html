@@ -18,8 +18,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script type="module" src="js/firebase-config.js"></script>
-    <script src="js/common.js"></script>
+    <script type="module" src="./js/firebase-config.js"></script>
+    <script src="./js/common.js"></script>
   </head>
   <body>
     <div class="main container mx-auto max-w-6xl">
@@ -28,7 +28,7 @@
         <div class="flex justify-between box-border border-b-1">
           <div class="flex w-[50% - 12px] mb-2">
             <a
-              href="index.html"
+              href="./dashboard.html"
               class="float-right box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
               >Back</a
             >
@@ -55,13 +55,21 @@
                 <span id="topicTechStackTxt" class="font-bold">JavaScript</span>
               </p>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-2 text-right">
               <a
-                href="editnote.html"
-                class="float-right text-xl sm:text-sm sm:box-border sm:border-1 sm:px-4 sm:rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
+                href="./editnote.html"
+                class="sm:float-right text-xl sm:text-sm sm:box-border sm:border-1 sm:px-4 sm:rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1 mr-2 sm:mr-0"
               >
                 <i class="fa-solid fa-pen-to-square"></i>
                 <span class="hidden sm:contents">Edit</span>
+              </a>
+              <a
+                href="#"
+                class="sm:float-right text-xl sm:text-sm sm:box-border sm:border-1 sm:px-4 sm:rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1 mt-0 sm:mt-2"
+                onclick="HandleFirebaseDB.DeleteTopic()"
+              >
+                <i class="fa-solid fa-trash"></i>
+                <span class="hidden sm:contents">Delete</span>
               </a>
             </div>
           </div>
@@ -274,11 +282,13 @@
 
     <!-- Update Topic view -->
     <div
-      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50"
       id="topicEditedModal"
     >
       <!-- Modal Box -->
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+      <div
+        class="bg-white max-w-[90%] p-6 rounded-lg shadow-lg sm:max-w-md w-full relative mb-4 sm:mb-0"
+      >
         <h2 class="text-xl font-semibold mb-4 flex align-center gap-2">
           <i class="fa-solid fa-circle-check text-green-700 text-3xl"></i>
           Success
@@ -294,9 +304,34 @@
     </div>
     <!-- End of Update Topic view -->
 
+    <!-- Delete Topic view -->
+    <div
+      class="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50"
+      id="topicDeletedModal"
+    >
+      <!-- Modal Box -->
+      <div
+        class="bg-white max-w-[90%] p-6 rounded-lg shadow-lg sm:max-w-md w-full relative mb-4 sm:mb-0"
+      >
+        <h2 class="text-xl font-semibold mb-4 flex align-center gap-2">
+          <i class="fa-solid fa-circle-check text-green-700 text-3xl"></i>
+          Success
+        </h2>
+        <p class="mb-4">Topic Details Deleted Successfully</p>
+        <button
+          onclick="closeDeleteModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl cursor-pointer"
+        >
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <!-- End of Delete Topic view -->
+
     <script>
       $(document).ready(function () {
         closeModal();
+        document.getElementById("topicDeletedModal").style.display = "none";
       });
 
       function HandleYourViewOnTopicSubmission() {
@@ -324,6 +359,9 @@
 
       function closeModal() {
         document.getElementById("topicEditedModal").style.display = "none";
+      }
+      function closeDeleteModal() {
+        window.location.href = "./index.html";
       }
       // end of Open and Close modal
     </script>

@@ -18,58 +18,360 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="./js/firebase-config.js"></script>
     <script src="./js/common.js"></script>
   </head>
   <body>
-    <div class="main container mx-auto max-w-6xl">
-      <!-- Header -->
-      <div class="container mx-auto p-4">
-        <div class="flex justify-between box-border border-b-1">
-          <div class="flex w-[50% - 12px]">
-            <h1 class="text-2xl font-bold">Welcome</h1>
-          </div>
-          <div class="flex align-center w-[50% - 12px]">
-            <i class="fa-solid fa-circle-user text-2xl cursor-pointer"></i>
-          </div>
-        </div>
-        <div class="mt-2">
-          <h3 class="text-md font-bold float-left">Topics:</h3>
-          <a
-            href="./addnotes.html"
-            class="float-right box-border border-1 px-4 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold py-1"
-            >Add</a
-          >
-        </div>
+    <div
+      class="flex min-h-[100vh] flex-wrap flex-col justify-center px-6 py-12 lg:px-8"
+    >
+      <div
+        class="flex flex-row justify-center sm:mx-auto sm:w-full sm:max-w-sm text-center"
+      >
+        <i class="fa-solid fa-note-sticky text-5xl mr-2"></i>
+        <span class="text-3xl font-bold relative top-1">NOTES</span>
       </div>
-      <!-- End of Header -->
 
-      <!-- List of Topic -->
-      <div class="container mx-auto mt-8 px-4">
-        <ul
-          class="grid grid-cols-1 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
-          id="notes-data-list"
-        >
-          <li></li>
-        </ul>
+      <div id="loginFormRow">
+        <form id="loginForm" action="HandleLoginSubmission" autocomplete="off">
+          <div
+            class="mt-4 p-6 bg-gray-100 min-w-[90%] sm:min-w-sm max-w-md mx-auto space-y-4 rounded-lg"
+          >
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                id="loginUsername"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Username"
+                value=""
+                autocomplete="off"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="loginPassword"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Password"
+                value=""
+                autocomplete="off"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <button
+                class="bg-black text-white w-full mt-2 py-2"
+                type="button"
+                onclick="HandleFormFields.onFormSubmit('loginForm')"
+              >
+                Login
+              </button>
+            </div>
+
+            <div class="form-group">
+              New User?
+              <button
+                class="font-bold text-blue-600 cursor-pointer"
+                type="button"
+                onclick="RegistrationFlow()"
+              >
+                Register now
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <!-- End of List of Topic -->
+
+      <div id="RegisterFormRow" class="hidden">
+        <form
+          id="RegisterForm"
+          action="HandleRegisterSubmission"
+          autocomplete="off"
+        >
+          <div
+            class="p-6 mt-4 bg-gray-100 min-w-[90%] sm:min-w-sm max-w-md mx-auto space-y-4 rounded-lg"
+          >
+            <div class="form-group relative">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Username"
+                onchange="HandleUserNameAvailability();"
+                value=""
+                readonly
+              />
+              <div id="UserNameAvailYes" class="hidden">
+                <i
+                  class="fa-solid fa-circle-check absolute bottom-3 right-3 text-xl text-green-700"
+                ></i>
+              </div>
+              <div id="UserNameAvailNo" class="hidden">
+                <i
+                  class="fa-solid fa-circle-xmark absolute bottom-3 right-3 text-xl text-red-700"
+                ></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                First Name
+              </label>
+              <input
+                type="text"
+                id="firstname"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Firstname"
+                value=""
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Lastname"
+                value=""
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Username"
+                onchange="HandleEmailValidation()"
+                value=""
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="password"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Password"
+                value=""
+                onchange="HandlePasswordValidation()"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="retypepassword"
+              >
+                Retype Password
+              </label>
+              <input
+                type="password"
+                id="retypepassword"
+                class="border-1 border-gray-200 bg-white rounded px-3 py-2 w-full req-field"
+                placeholder="Enter Password"
+                value=""
+                onchange="HandlePasswordValidation()"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <button
+                class="bg-black text-white w-full mt-2 py-2 cursor-pointer"
+                type="button"
+                onclick="HandleFormFields.onFormSubmit('RegisterForm')"
+              >
+                Register
+              </button>
+            </div>
+
+            <div class="form-group">
+              Already a User?
+              <button
+                class="font-bold text-blue-600 cursor-pointer"
+                onclick="LoginFlow()"
+                type="button"
+              >
+                Login now
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
+    <!-- Registration Success modal -->
+    <div
+      class="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50"
+      id="RegistrationSucModal"
+    >
+      <!-- Modal Box -->
+      <div
+        class="bg-white max-w-[90%] p-6 rounded-lg shadow-lg sm:max-w-md w-full relative mb-4 sm:mb-0"
+      >
+        <h2 class="text-xl font-semibold mb-4 flex align-center gap-2">
+          <i class="fa-solid fa-circle-check text-green-700 text-3xl"></i>
+          Success
+        </h2>
+        <p class="mb-4">Registraion Successfully</p>
+        <button
+          onclick="closeRegistrationModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl cursor-pointer"
+        >
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <!-- End of Registration Success modal -->
+
     <script>
-      $(document).ready(function () {
-        closeModal();
+      $(function () {
+        document.getElementById("RegistrationSucModal").style.display = "none";
+        if (localStorage.getItem("username")) {
+          window.location.href = "./dashboard.html";
+        }
       });
-
-      // Open and Close modal
-      function openModal() {
-        document.getElementById("customModal").style.display = "flex";
+      function RegistrationFlow() {
+        $("#RegisterFormRow").removeClass("hidden");
+        $("#loginFormRow").addClass("hidden");
+        return false;
       }
 
-      function closeModal() {
-        document.getElementById("customModal").style.display = "none";
+      function LoginFlow() {
+        $("#RegisterFormRow").addClass("hidden");
+        $("#loginFormRow").removeClass("hidden");
+        return false;
       }
-      // end of Open and Close modal
+
+      function HandleLoginSubmission() {
+        window.LoginformData.username = $("#loginUsername").val();
+        window.LoginformData.password = $("#loginPassword").val();
+        window.HandleFirebaseDB.UserLogin();
+      }
+
+      function HandleUserNameAvailability() {
+        const pattern = /^[a-z]+$/;
+        window.RegisterformData.username = $("#username").val();
+        if (
+          window.RegisterformData.username.length > 7 &&
+          pattern.test(window.RegisterformData.username)
+        ) {
+          window.HandleFirebaseDB.UserNameAvailCheck();
+        } else {
+          $("#username").addClass("border-red-500");
+          alert(
+            "Username should contain 8 characters and Only lowercase alphabetics are allowed"
+          );
+        }
+      }
+
+      function HandleEmailValidation() {
+        window.RegisterformData.email = $("#email").val();
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (window.RegisterformData.email.length) {
+          if (!emailPattern.test(window.RegisterformData.email)) {
+            $("#email").addClass("border-red-500");
+            alert("Invalid Email ID");
+            return false;
+          } else {
+            $("#email").removeClass("border-red-500");
+            return true;
+          }
+        }
+      }
+
+      function HandlePasswordValidation() {
+        window.RegisterformData.password = $("#password").val();
+        window.RegisterformData.retypepassword = $("#retypepassword").val();
+
+        if (
+          window.RegisterformData.password &&
+          window.RegisterformData.retypepassword
+        ) {
+          if (
+            window.RegisterformData.password !==
+            window.RegisterformData.retypepassword
+          ) {
+            alert("Password and Retype Password Not matched");
+            $("#password").addClass("border-red-500");
+            $("#retypepassword").addClass("border-red-500");
+            return false;
+          } else {
+            $("#password").removeClass("border-red-500");
+            $("#retypepassword").removeClass("border-red-500");
+            return true;
+          }
+        }
+      }
+
+      function HandleRegisterSubmission() {
+        window.RegisterformData.username = $("#username").val();
+        window.RegisterformData.password = $("#password").val();
+        window.RegisterformData.firstname = $("#firstname").val();
+        window.RegisterformData.lastname = $("#lastname").val();
+        window.RegisterformData.retypepassword = $("#retypepassword").val();
+        window.RegisterformData.email = $("#email").val();
+
+        if (
+          window.UserAvailCheck &&
+          HandleEmailValidation() &&
+          HandlePasswordValidation()
+        ) {
+          window.HandleFirebaseDB.UserRegistration();
+        }
+      }
+
+      function closeRegistrationModal() {
+        window.location.href = "./dashboard.html";
+      }
     </script>
   </body>
 </html>

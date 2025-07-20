@@ -25,37 +25,38 @@ import {
   remove,
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
+const now = new Date();
+const day = now.getDate();
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const month = monthNames[now.getMonth()];
+const year = now.getFullYear();
+let hours = now.getHours();
+let minutes = now.getMinutes();
+const ampm = hours >= 12 ? "PM" : "AM";
+hours = hours % 12;
+hours = hours ? hours : 12; // the hour '0' should be '12'
+minutes = minutes < 10 ? "0" + minutes : minutes;
+const formattedTime = `${hours}:${minutes} ${ampm}`;
+const formattedDate = `${day}/${month}/${year} ${formattedTime}`;
+
 const db = getDatabase();
 
 class HandleFirebase {
   AddTopic() {
     let topicID = "topic" + Date.now();
-    const now = new Date();
-    const day = now.getDate();
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[now.getMonth()];
-    const year = now.getFullYear();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    const formattedTime = `${hours}:${minutes} ${ampm}`;
-    const formattedDate = `${day}/${month}/${year} ${formattedTime}`;
     set(ref(db, "topics/" + topicID), {
       id: topicID,
       topicTitle: window.newTopicData.topicTitle,
@@ -69,7 +70,7 @@ class HandleFirebase {
       topicNeedClarification: false,
       topicHandsOnNeeded: false,
       topicReadyForInterview: false,
-      userId: "udhayakumarp",
+      userId: localStorage.getItem("username"),
       createdOn: formattedDate,
       updatedOn: formattedDate,
     })
@@ -88,6 +89,9 @@ class HandleFirebase {
       .then((snapshot) => {
         if (snapshot.exists()) {
           window.TopicData = snapshot.val();
+          window.TopicData = Object.values(window.TopicData).filter(
+            (items) => items.userId === localStorage.getItem("username")
+          );
           HandlePaintData.PaintUserTopic();
           if (localStorage.getItem("SelectedTopic")) {
             HandlePaintData.paintViewTopic();
@@ -105,32 +109,6 @@ class HandleFirebase {
 
   UpdateTopic() {
     let topicID = localStorage.getItem("SelectedTopic");
-    const now = new Date();
-    const day = now.getDate();
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[now.getMonth()];
-    const year = now.getFullYear();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    const formattedTime = `${hours}:${minutes} ${ampm}`;
-    const formattedDate = `${day}/${month}/${year} ${formattedTime}`;
     update(ref(db, "topics/" + topicID), {
       topicTitle: window.EditTopicData.topicTitle,
       topicTechStack: window.EditTopicData.topicTechStack,
@@ -151,32 +129,6 @@ class HandleFirebase {
 
   UpdateYourViewOnTopic() {
     let topicID = localStorage.getItem("SelectedTopic");
-    const now = new Date();
-    const day = now.getDate();
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[now.getMonth()];
-    const year = now.getFullYear();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    const formattedTime = `${hours}:${minutes} ${ampm}`;
-    const formattedDate = `${day}/${month}/${year} ${formattedTime}`;
     update(ref(db, "topics/" + topicID), {
       topicCompleted: window.YourViewOnTopicData.topicCompleted,
       topicParked: window.YourViewOnTopicData.topicParked,
@@ -187,6 +139,79 @@ class HandleFirebase {
     })
       .then(() => {
         document.getElementById("topicEditedModal").style.display = "flex";
+      })
+      .catch((err) => {
+        alert("Data Not Inserted");
+        console.log();
+      });
+  }
+
+  DeleteTopic() {
+    let topicID = localStorage.getItem("SelectedTopic");
+    remove(ref(db, "topics/" + topicID))
+      .then(() => {
+        document.getElementById("topicDeletedModal").style.display = "flex";
+      })
+      .catch((err) => {
+        alert("Data Not Deleted");
+        console.log();
+      });
+  }
+  UserLogin() {
+    const dbRef = ref(db);
+    get(child(dbRef, "users/" + window.LoginformData.username))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          window.SessionUserData = snapshot.val();
+          if (
+            window.SessionUserData.password === window.LoginformData.password
+          ) {
+            console.log("Logged In");
+            localStorage.setItem("username", window.SessionUserData.username);
+            window.location.href = "./dashboard.html";
+          } else {
+            console.log("InCorrect Password");
+          }
+        } else {
+          console.log("User Not Found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting data:", error);
+      });
+  }
+  UserNameAvailCheck() {
+    const dbRef = ref(db);
+    get(child(dbRef, "users/" + window.RegisterformData.username))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          $("#UserNameAvailNo").removeClass("hidden");
+          $("#UserNameAvailYes").addClass("hidden");
+          $("#username").addClass("border-red-500");
+          window.UserAvailCheck = false;
+        } else {
+          $("#UserNameAvailNo").addClass("hidden");
+          $("#UserNameAvailYes").removeClass("hidden");
+          $("#username").removeClass("border-red-500");
+          window.UserAvailCheck = true;
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting data:", error);
+      });
+  }
+  UserRegistration() {
+    set(ref(db, "users/" + window.RegisterformData.username), {
+      username: window.RegisterformData.username,
+      email: window.RegisterformData.email,
+      password: window.RegisterformData.password,
+      firstname: window.RegisterformData.firstname,
+      lastname: window.RegisterformData.lastname,
+      createdOn: formattedDate,
+    })
+      .then(() => {
+        localStorage.setItem("username", window.RegisterformData.username);
+        document.getElementById("RegistrationSucModal").style.display = "flex";
       })
       .catch((err) => {
         alert("Data Not Inserted");

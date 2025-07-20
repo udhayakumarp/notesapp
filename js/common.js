@@ -36,7 +36,7 @@ class PaintTopicData {
 
   NavigateViewTopic(topicid) {
     localStorage.setItem("SelectedTopic", topicid);
-    window.location.href = "https://udhayakumarp.github.io/notesapp/viewnotes.html";
+    window.location.href = "./viewnotes.html";
   }
 
   paintViewTopic() {
@@ -96,28 +96,52 @@ class PaintTopicData {
       $("#topicSource").val(selectedTopicData[0].topicSource);
       $("#topicYouTubeID").val(selectedTopicData[0].topicYouTubeID);
     }
-    Object.values(window.TopicData).map((items) => {
-      if (TechStackDropdownData.indexOf(items.topicTechStack) === -1) {
-        TechStackDropdownData.push(items.topicTechStack);
+    if (window.TopicData.length > 0) {
+      Object.values(window.TopicData).map((items) => {
+        if (TechStackDropdownData.indexOf(items.topicTechStack) === -1) {
+          TechStackDropdownData.push(items.topicTechStack);
 
-        if (localStorage.getItem("SelectedTopic")) {
-          if (selectedTopicData[0].topicTechStack === items.topicTechStack) {
-            $("select#topicTechStack").append(
-              `<option value="${items.topicTechStack}" selected>${items.topicTechStack}</option>`
-            );
+          if (localStorage.getItem("SelectedTopic")) {
+            if (selectedTopicData[0].topicTechStack === items.topicTechStack) {
+              $("select#topicTechStack").append(
+                `<option value="${items.topicTechStack}" selected>${items.topicTechStack}</option>`
+              );
+            } else {
+              $("select#topicTechStack").append(
+                `<option value="${items.topicTechStack}">${items.topicTechStack}</option>`
+              );
+            }
           } else {
             $("select#topicTechStack").append(
               `<option value="${items.topicTechStack}">${items.topicTechStack}</option>`
             );
           }
-        } else {
-          $("select#topicTechStack").append(
-            `<option value="${items.topicTechStack}">${items.topicTechStack}</option>`
-          );
         }
-      }
-    });
+      });
+    } else {
+      $("#AddNewTechStackRow").removeClass("hidden");
+      $("#AddNewTechStack").addClass("req-field");
+    }
+
     $("select#topicTechStack").append(`<option value="Other">Other</option>`);
+  }
+}
+
+$(document).on("focus", ".req-field", function () {
+  $(this).removeAttr("readonly");
+});
+
+class UserSession {
+  // LoggedUser() {
+  //   if (localStorage.getItem("username")) {
+  //     window.location.href = "dashboard.html";
+  //   } else {
+  //     window.location.href = "index.html";
+  //   }
+  // }
+  SessionLogout() {
+    localStorage.setItem("username", "");
+    window.location.href = "./index.html";
   }
 }
 
@@ -125,6 +149,11 @@ window.newTopicData = [];
 window.EditTopicData = [];
 window.YourViewOnTopicData = [];
 window.TopicData = [];
+window.LoginformData = [];
+window.RegisterformData = [];
+window.SessionUserData = [];
+window.UserAvailCheck = false;
 
 var HandleFormFields = new ValidFormFields();
 var HandlePaintData = new PaintTopicData();
+var HandleUserSession = new UserSession();
