@@ -172,9 +172,11 @@ class HandleFirebase {
             localStorage.setItem("username", window.SessionUserData.username);
             window.location.href = "./dashboard.html";
           } else {
+            alert("Invalid Username or Password");
             console.log("InCorrect Password");
           }
         } else {
+          alert("User Not Available, Please register now");
           console.log("User Not Found");
         }
       })

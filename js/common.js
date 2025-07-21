@@ -72,6 +72,8 @@ class PaintTopicData {
     $("#ViewTechStackCoveredRow, #NoOfTopicHead").addClass("hidden");
     HandlePaintData.PaintUserTopic(selectedTechStack);
     $("#techstackTopicsHead").text(selectedTechStack);
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
   }
 
   PaintUserTopic(selectedTechStack) {

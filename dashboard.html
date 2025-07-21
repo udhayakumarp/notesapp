@@ -18,6 +18,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="./js/charts.js"></script>
     <script type="module" src="./js/firebase-config.js"></script>
     <script src="./js/common.js"></script>
   </head>
@@ -65,8 +67,7 @@
           id="techstack-covered-list"
         >
           <li>
-            <div
-              class="shadow-lg cursor-pointer relative"
+            <div class="shadow-lg cursor-pointer relative"
               onclick="window.location.href='./addnotes.html'"
             >
               <img src="./images/techstack/addtechstackbg.jpg" alt="" />
@@ -83,16 +84,21 @@
       <!-- End of TechStack Covered -->
 
       <!-- List of Topic -->
-      <div class="container mx-auto mt-0 px-4 hidden" id="ViewUserTopicRow">
-        <h2 class="text-xl font-bold">
-          <span id="techstackTopicsHead"></span> Topics:
-        </h2>
-        <ul
-          class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
-          id="notes-data-list"
-        >
-          <li></li>
-        </ul>
+      <div class="container mx-auto grid grid-cols-1 sm:grid-cols-4 mt-0 px-4 hidden" id="ViewUserTopicRow">
+          <div class="mt-0 col-span-3 box-border border-r-1 pr-2 mr-2">
+            <h2 class="text-xl font-bold">
+              <span id="techstackTopicsHead"></span> Topics:
+            </h2>
+            <ul
+              class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+              id="notes-data-list"
+            >
+              <li></li>
+            </ul>
+          </div>
+          <div class="mt-4 sm:mt-0 col-span-1">
+            <div id="chart"></div>
+          </div>
       </div>
       <!-- End of List of Topic -->
     </div>
