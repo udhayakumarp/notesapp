@@ -136,6 +136,7 @@ class PaintTopicData {
     if (selectedTopicData[0].topicReadyForInterview) {
       $("#topicReadyFInterviewCB").prop("checked", true);
     }
+    HandleYourViewUpdates();
   }
 
   PaintTechStackCategoryDropdown() {

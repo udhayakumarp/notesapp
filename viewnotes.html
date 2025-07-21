@@ -128,31 +128,7 @@
         >
           <h3 class="text-2xl font-bold">Your view on this Topic</h3>
           <div class="mt-2">
-            <ul class="flex flex-wrap gap-4">
-              <li>
-                <div class="flex">
-                  <div class="flex items-center h-5">
-                    <input
-                      id="topicCompletedCB"
-                      aria-describedby="topicCompletedCB-text"
-                      type="checkbox"
-                      value=""
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                  <div class="ms-2 text-sm">
-                    <label for="topicCompletedCB" class="font-medium text-black"
-                      >Completed</label
-                    >
-                    <p
-                      id="topicCompletedCB-text"
-                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
-                    >
-                      Completely Understood the Topic
-                    </p>
-                  </div>
-                </div>
-              </li>
+            <ul id="YourViewUpdatesList" class="flex flex-wrap gap-4">
               <li>
                 <div class="flex">
                   <div class="flex items-center h-5">
@@ -161,6 +137,7 @@
                       aria-describedby="topicParkedCB-text"
                       type="checkbox"
                       value=""
+                      onchange="HandleYourViewUpdates()"
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
@@ -185,6 +162,7 @@
                       aria-describedby="topicNeedClarificationCB-text"
                       type="checkbox"
                       value=""
+                      onchange="HandleYourViewUpdates()"
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
@@ -208,37 +186,11 @@
                 <div class="flex">
                   <div class="flex items-center h-5">
                     <input
-                      id="topicReadyFInterviewCB"
-                      aria-describedby="topicReadyFInterviewCB-text"
-                      type="checkbox"
-                      value=""
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                  <div class="ms-2 text-sm">
-                    <label
-                      for="topicReadyFInterviewCB"
-                      class="font-medium text-black"
-                      >Ready For Interview</label
-                    >
-                    <p
-                      id="topicReadyFInterviewCB-text"
-                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
-                    >
-                      Completely Understood and able to answer this Topic on
-                      Interview
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="flex">
-                  <div class="flex items-center h-5">
-                    <input
                       id="topicHandsOnNeededCB"
                       aria-describedby="topicHandsOnNeededCB-text"
                       type="checkbox"
                       value=""
+                      onchange="HandleYourViewUpdates()"
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
@@ -253,6 +205,59 @@
                       class="text-xs font-normal text-gray-500 dark:text-gray-400"
                     >
                       Understood the Topic, may need hands on.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicCompletedCB"
+                      aria-describedby="topicCompletedCB-text"
+                      type="checkbox"
+                      value=""
+                      onchange="HandleYourViewUpdates()"
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 disabled:cursor-not-allowed"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label for="topicCompletedCB" class="font-medium text-black"
+                      >Completed</label
+                    >
+                    <p
+                      id="topicCompletedCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Completely Understood the Topic
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="topicReadyFInterviewCB"
+                      aria-describedby="topicReadyFInterviewCB-text"
+                      type="checkbox"
+                      value=""
+                      onchange="HandleYourViewUpdates()"
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 disabled:cursor-not-allowed"
+                    />
+                  </div>
+                  <div class="ms-2 text-sm">
+                    <label
+                      for="topicReadyFInterviewCB"
+                      class="font-medium text-black"
+                      >Ready For Interview</label
+                    >
+                    <p
+                      id="topicReadyFInterviewCB-text"
+                      class="text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      Completely Understood and able to answer this Topic on
+                      Interview
                     </p>
                   </div>
                 </div>
@@ -362,6 +367,28 @@
       }
       function closeDeleteModal() {
         window.location.href = "./index.html";
+      }
+
+      function HandleYourViewUpdates() {
+        let topicParked = $("#topicParkedCB").is(":checked");
+        let topicNeedClarification = $("#topicNeedClarificationCB").is(
+          ":checked"
+        );
+        let topicHandsOnNeeded = $("#topicHandsOnNeededCB").is(":checked");
+        let topicCompleted = $("#topicCompletedCB").is(":checked");
+        let topicReadyForInterview = $("#topicReadyFInterviewCB").is(
+          ":checked"
+        );
+
+        if (!topicParked && !topicNeedClarification && !topicHandsOnNeeded) {
+          $("#topicCompletedCB, #topicReadyFInterviewCB").removeAttr(
+            "disabled"
+          );
+        } else {
+          $("#topicCompletedCB, #topicReadyFInterviewCB")
+            .attr("disabled", "disabled")
+            .prop("checked", false);
+        }
       }
       // end of Open and Close modal
     </script>

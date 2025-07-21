@@ -67,7 +67,8 @@
           id="techstack-covered-list"
         >
           <li>
-            <div class="shadow-lg cursor-pointer relative"
+            <div
+              class="shadow-lg cursor-pointer relative"
               onclick="window.location.href='./addnotes.html'"
             >
               <img src="./images/techstack/addtechstackbg.jpg" alt="" />
@@ -84,22 +85,45 @@
       <!-- End of TechStack Covered -->
 
       <!-- List of Topic -->
-      <div class="container mx-auto grid grid-cols-1 sm:grid-cols-4 mt-0 px-4 hidden" id="ViewUserTopicRow">
-          <div class="mt-0 col-span-3 box-border border-r-1 pr-2 mr-2">
-            <h2 class="text-xl font-bold">
-              <span id="techstackTopicsHead"></span> Topics:
-            </h2>
-            <ul
-              class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
-              id="notes-data-list"
+      <div id="ViewUserTopicRow" class="px-4 hidden">
+        <ul class="flex flex-wrap box-border border-b-1 border-gray-300">
+          <li class="w-[50%] sm:w-auto text-center sm:text-left">
+            <div
+              id="topicDetailsTab"
+              class="px-6 py-2 box-border border-b-1 border-gray-600 cursor-pointer"
+              onclick="HandleTopicListingTabContents('topicDetailsTabContent')"
             >
-              <li></li>
-            </ul>
-          </div>
-          <div class="mt-4 sm:mt-0 col-span-1">
-            <div id="chart"></div>
-          </div>
+              Topics Details
+            </div>
+          </li>
+          <li class="w-[50%] sm:w-auto text-center sm:text-left">
+            <div
+              id="topicOverViewTab"
+              class="px-6 py-2 box-border border-b-0 cursor-pointer"
+              onclick="HandleTopicListingTabContents('topicOverViewTabContent')"
+            >
+              OverView
+            </div>
+          </li>
+        </ul>
+
+        <div class="mt-4" id="topicDetailsTabContent">
+          <h2 class="text-xl font-bold">
+            <span id="techstackTopicsHead"></span> Topics:
+          </h2>
+          <ul
+            class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            id="notes-data-list"
+          >
+            <li></li>
+          </ul>
+        </div>
+
+        <div class="max-w-md mx-auto hidden" id="topicOverViewTabContent">
+          <div class="mt-4" id="chart"></div>
+        </div>
       </div>
+
       <!-- End of List of Topic -->
     </div>
 
@@ -128,6 +152,32 @@
       function HandleBackToTechStack() {
         $("#ViewUserTopicRow, #backToCoveredTop").addClass("hidden");
         $("#ViewTechStackCoveredRow, #NoOfTopicHead").removeClass("hidden");
+      }
+
+      function HandleTopicListingTabContents(topicContent) {
+        if (topicContent === "topicOverViewTabContent") {
+          $("#topicOverViewTabContent").removeClass("hidden");
+          $("#topicDetailsTabContent").addClass("hidden");
+          $("#topicOverViewTab")
+            .removeClass("border-b-0")
+            .addClass("border-b-1")
+            .addClass("border-gray-600");
+          $("#topicDetailsTab")
+            .addClass("border-b-0")
+            .removeClass("border-b-1")
+            .removeClass("border-gray-600");
+        } else {
+          $("#topicOverViewTabContent").addClass("hidden");
+          $("#topicDetailsTabContent").removeClass("hidden");
+          $("#topicDetailsTab")
+            .removeClass("border-b-0")
+            .addClass("border-b-1")
+            .addClass("border-gray-600");
+          $("#topicOverViewTab")
+            .addClass("border-b-0")
+            .removeClass("border-b-1")
+            .removeClass("border-gray-600");
+        }
       }
     </script>
   </body>
