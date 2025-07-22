@@ -69,7 +69,9 @@ class PaintTopicData {
 
   PaintSelectedTechStack(selectedTechStack) {
     $("#ViewUserTopicRow, #backToCoveredTop").removeClass("hidden");
-    $("#ViewTechStackCoveredRow, #NoOfTopicHead").addClass("hidden");
+    $("#ViewTechStackCoveredRow, #NoOfTopicHead, #DashboardWidgets").addClass(
+      "hidden"
+    );
     HandlePaintData.PaintUserTopic(selectedTechStack);
     $("#techstackTopicsHead").text(selectedTechStack);
   }
@@ -80,14 +82,13 @@ class PaintTopicData {
       topicHandsOnNeeded: 0,
       topicNeedClarification: 0,
       topicParked: 0,
-      topicReadyForInterview: 0
+      topicReadyForInterview: 0,
     };
     $("#notes-data-list").empty();
     const notesData = window.TopicData;
     let NumberOfTopics = 0;
     $.each(notesData, function (index, topic) {
-      if (selectedTechStack === topic.topicTechStack)
-      {
+      if (selectedTechStack === topic.topicTechStack) {
         $("#notes-data-list").append(`<div
                 class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
                 onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
@@ -95,7 +96,7 @@ class PaintTopicData {
                 <h5 class="text-md font-bold">${topic.topicTitle}</h5>
                 <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
               </div>`);
-        Object.keys(YourReviewcounters).forEach(key => {
+        Object.keys(YourReviewcounters).forEach((key) => {
           if (topic[key] === true) {
             YourReviewcounters[key]++;
           }
@@ -105,6 +106,66 @@ class PaintTopicData {
     });
     window.yourTechStackReviewChartData = YourReviewcounters;
     HandleChartLaunch(selectedTechStack, NumberOfTopics);
+  }
+
+  PaintSearchFilter() {
+    const notesData = window.TopicData;
+    $("#searchResultList").empty();
+    let searchVal = $("#searchfield").val();
+    if (searchVal.length > 3) {
+      $.each(notesData, function (index, topic) {
+        if (
+          topic.topicTitle.indexOf(searchVal) > -1 ||
+          topic.topicTitle.toLowerCase().indexOf(searchVal) > -1
+        ) {
+          $("#searchResultList").append(`<li
+              class="odd:bg-gray-100 p-2 hover:bg-gray-200 cursor-pointer hover:font-medium"
+              onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
+            >
+              <p>${topic.topicTitle}</p>
+            </li>`);
+          $("#searchResultRow").removeClass("hidden");
+        }
+      });
+    } else {
+      $("#searchResultRow").addClass("hidden");
+    }
+  }
+
+  PaintActionableTopics() {
+    $("#ActionableTopicsList").empty();
+    const notesData = window.TopicData;
+    $.each(notesData, function (index, topic) {
+      if (
+        topic.topicParked ||
+        topic.topicNeedClarification ||
+        topic.topicHandsOnNeeded
+      ) {
+        $("#ActionableTopicsList").append(`<div
+                class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
+                onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
+              >
+                <h5 class="text-md font-bold">${topic.topicTitle}</h5>
+                <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
+              </div>`);
+      }
+    });
+  }
+
+  PaintReadyForInterviewTopics() {
+    $("#ReadyForInterviewTopicsList").empty();
+    const notesData = window.TopicData;
+    $.each(notesData, function (index, topic) {
+      if (topic.topicReadyForInterview) {
+        $("#ReadyForInterviewTopicsList").append(`<div
+                class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
+                onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
+              >
+                <h5 class="text-md font-bold">${topic.topicTitle}</h5>
+                <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
+              </div>`);
+      }
+    });
   }
 
   NavigateViewTopic(topicid) {
@@ -220,12 +281,14 @@ class UserSession {
 }
 
 class BackNavigation {
-    BackToOverViewCharts(){
-      $('#OverViewYourTopicRow').addClass('hidden');
-      $('#chart').removeClass('hidden');
-      $('#backToCoveredTop').attr('onclick', 'HandleBackToTechStack();');
-      $('#topicDetailsTab').removeClass('opacity-30').removeClass('pointer-events-none');
-    }
+  BackToOverViewCharts() {
+    $("#OverViewYourTopicRow").addClass("hidden");
+    $("#chart").removeClass("hidden");
+    $("#backToCoveredTop").attr("onclick", "HandleBackToTechStack();");
+    $("#topicDetailsTab")
+      .removeClass("opacity-30")
+      .removeClass("pointer-events-none");
+  }
 }
 
 window.newTopicData = [];
@@ -238,11 +301,11 @@ window.RegisterformData = [];
 window.SessionUserData = [];
 window.UserAvailCheck = false;
 window.yourTechStackReviewChartData = {
-    "topicCompleted": 0,
-    "topicHandsOnNeeded": 0,
-    "topicNeedClarification": 0,
-    "topicParked": 0,
-    "topicReadyForInterview": 0
+  topicCompleted: 0,
+  topicHandsOnNeeded: 0,
+  topicNeedClarification: 0,
+  topicParked: 0,
+  topicReadyForInterview: 0,
 };
 
 var HandleFormFields = new ValidFormFields();

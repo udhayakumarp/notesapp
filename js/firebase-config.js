@@ -95,6 +95,8 @@ class HandleFirebase {
           $("#TopicsCount").text(window.TopicData.length);
           // HandlePaintData.PaintUserTopic();
           HandlePaintData.PaintCoveredTechStack();
+          HandlePaintData.PaintActionableTopics();
+          HandlePaintData.PaintReadyForInterviewTopics();
           if (localStorage.getItem("SelectedTopic")) {
             HandlePaintData.paintViewTopic();
           }

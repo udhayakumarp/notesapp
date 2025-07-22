@@ -32,11 +32,23 @@
             <h1 class="text-2xl font-bold">Welcome</h1>
           </div>
           <div class="flex align-center w-[50% - 12px]">
-            <i class="fa-solid fa-circle-user text-2xl cursor-pointer mr-4"></i>
-            <span onclick="HandleUserSession.SessionLogout();"
-              ><i
-                class="fa-solid fa-right-from-bracket text-2xl cursor-pointer"
-              ></i
+            <span class="relative"
+              ><button
+                class="cursor-pointer mr-2 sm:mr-4"
+                onclick="HandleSearchBox('open')"
+              >
+                <i class="fa-solid fa-magnifying-glass text-2xl"></i>
+              </button>
+              <button class="cursor-pointer mr-4 hidden">
+                <i class="fa-solid fa-circle-user text-2xl"></i>
+              </button>
+              <button
+                class="cursor-pointer"
+                onclick="HandleUserSession.SessionLogout();"
+              >
+                <i
+                  class="fa-solid fa-right-from-bracket text-2xl cursor-pointer"
+                ></i></button
             ></span>
           </div>
         </div>
@@ -90,7 +102,7 @@
           <li class="w-[50%] sm:w-auto text-center sm:text-left">
             <div
               id="topicDetailsTab"
-              class="px-6 py-2 box-border border-b-1 border-gray-600 cursor-pointer "
+              class="px-6 py-2 box-border border-b-1 border-gray-600 cursor-pointer"
               onclick="HandleTopicListingTabContents('topicDetailsTabContent')"
             >
               Topics Details
@@ -114,25 +126,133 @@
           <div
             class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
             id="notes-data-list"
-          >
-        </div>
+          ></div>
         </div>
 
-        <div class=" mx-auto hidden" id="topicOverViewTabContent">
+        <div class="mx-auto hidden" id="topicOverViewTabContent">
           <div class="mt-4" id="chart"></div>
           <div class="mt-4 hidden" id="OverViewYourTopicRow">
-            <h2 class="font-bold" id="OverViewYourTopicHeading">Topic <span class="font-semibold italic"></span></h2>
+            <h2 class="font-bold" id="OverViewYourTopicHeading">
+              Topic: <span class="font-semibold italic"></span>
+            </h2>
             <div
-            class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
-            id="OverViewYourTopicList"
-          >
-        </div>
+              class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+              id="OverViewYourTopicList"
+            ></div>
           </div>
         </div>
       </div>
 
       <!-- End of List of Topic -->
     </div>
+
+    <!-- DashboardWidgets -->
+    <div id="DashboardWidgets" class="container mx-auto max-w-6xl">
+      <!-- Actionable Items -->
+      <div id="actionableItems" class="px-4 mt-8">
+        <h2 class="font-bold">Actionable Items</h2>
+        <div
+          class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+          id="ActionableTopicsList"
+        ></div>
+      </div>
+      <!-- End of Actionable Items -->
+
+      <!-- Ready For Interview Items -->
+      <div id="actionableItems" class="px-4 mt-8">
+        <h2 class="font-bold">Topic: Ready for Interview</h2>
+        <div
+          class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+          id="ReadyForInterviewTopicsList"
+        ></div>
+      </div>
+      <!-- Ready For Interview Items -->
+    </div>
+    <!-- End of DashboardWidgets -->
+
+    <!-- Search modal -->
+    <div
+      class="hidden fixed inset-0 bg-black/60 pt-4 flex items-start sm:items-start justify-center z-50"
+      id="topicEditedModal"
+    >
+      <div class="max-w-full p-6 sm:max-w-3xl w-full relative mb-4 sm:mb-0">
+        <div class="relative">
+          <input
+            type="text"
+            class="border-1 bg-white border-gray-200 rounded px-3 py-2 w-full req-field"
+            placeholder="Search topics"
+            onkeyup="HandlePaintData.PaintSearchFilter()"
+            id="searchfield"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass absolute top-3 right-4 text-xl text-gray-500"
+          ></i>
+          <button
+            class="absolute -top-4 -right-2 text-xl text-black/80 cursor-pointer"
+            onclick="HandleSearchBox('close')"
+          >
+            <i class="fa-solid fa-circle-xmark bg-white rounded-lg"></i>
+          </button>
+        </div>
+        <div class="mt-1 rounded p-1 bg-white hidden" id="searchResultRow">
+          <ul class="space-y-1" id="searchResultList">
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- End of Search modal -->
+
+    <!-- Reminder Alert -->
+    <div
+      id="reminderAlert"
+      class="flex hidden items-center max-w-[96%] sm:max-w-md fixed bottom-1 sm:bottom-2 right-[2%] sm:right-2 p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+      role="alert"
+    >
+      <svg
+        class="shrink-0 w-4 h-4"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="ms-3 text-sm font-medium">
+        Action required for the recently added topics,
+        <a href="#" class="font-semibold underline hover:no-underline"
+          >click here</a
+        >
+        to completed them.
+      </div>
+      <button
+        type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-yellow-300 dark:hover:bg-gray-700"
+        data-dismiss-target="#alert-4"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close</span>
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+    <!-- End of Reminder Alert -->
 
     <script>
       $(function () {
@@ -158,7 +278,9 @@
 
       function HandleBackToTechStack() {
         $("#ViewUserTopicRow, #backToCoveredTop").addClass("hidden");
-        $("#ViewTechStackCoveredRow, #NoOfTopicHead").removeClass("hidden");
+        $(
+          "#ViewTechStackCoveredRow, #NoOfTopicHead, #DashboardWidgets"
+        ).removeClass("hidden");
       }
 
       function HandleTopicListingTabContents(topicContent) {
@@ -185,6 +307,12 @@
             .removeClass("border-b-1")
             .removeClass("border-gray-600");
         }
+      }
+
+      function HandleSearchBox(searchBoxAction) {
+        searchBoxAction === "open"
+          ? $("#topicEditedModal").removeClass("hidden")
+          : $("#topicEditedModal").addClass("hidden");
       }
     </script>
   </body>
