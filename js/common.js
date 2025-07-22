@@ -72,15 +72,22 @@ class PaintTopicData {
     $("#ViewTechStackCoveredRow, #NoOfTopicHead").addClass("hidden");
     HandlePaintData.PaintUserTopic(selectedTechStack);
     $("#techstackTopicsHead").text(selectedTechStack);
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
   }
 
   PaintUserTopic(selectedTechStack) {
+    let YourReviewcounters = {
+      topicCompleted: 0,
+      topicHandsOnNeeded: 0,
+      topicNeedClarification: 0,
+      topicParked: 0,
+      topicReadyForInterview: 0
+    };
     $("#notes-data-list").empty();
-    const notesDate = window.TopicData;
-    $.each(notesDate, function (index, topic) {
+    const notesData = window.TopicData;
+    let NumberOfTopics = 0;
+    $.each(notesData, function (index, topic) {
       if (selectedTechStack === topic.topicTechStack)
+      {
         $("#notes-data-list").append(`<div
                 class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
                 onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
@@ -88,7 +95,16 @@ class PaintTopicData {
                 <h5 class="text-md font-bold">${topic.topicTitle}</h5>
                 <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
               </div>`);
+        Object.keys(YourReviewcounters).forEach(key => {
+          if (topic[key] === true) {
+            YourReviewcounters[key]++;
+          }
+        });
+        NumberOfTopics++;
+      }
     });
+    window.yourTechStackReviewChartData = YourReviewcounters;
+    HandleChartLaunch(selectedTechStack, NumberOfTopics);
   }
 
   NavigateViewTopic(topicid) {
@@ -203,6 +219,15 @@ class UserSession {
   }
 }
 
+class BackNavigation {
+    BackToOverViewCharts(){
+      $('#OverViewYourTopicRow').addClass('hidden');
+      $('#chart').removeClass('hidden');
+      $('#backToCoveredTop').attr('onclick', 'HandleBackToTechStack();');
+      $('#topicDetailsTab').removeClass('opacity-30').removeClass('pointer-events-none');
+    }
+}
+
 window.newTopicData = [];
 window.EditTopicData = [];
 window.YourViewOnTopicData = [];
@@ -212,7 +237,15 @@ window.TechStackCovered = {};
 window.RegisterformData = [];
 window.SessionUserData = [];
 window.UserAvailCheck = false;
+window.yourTechStackReviewChartData = {
+    "topicCompleted": 0,
+    "topicHandsOnNeeded": 0,
+    "topicNeedClarification": 0,
+    "topicParked": 0,
+    "topicReadyForInterview": 0
+};
 
 var HandleFormFields = new ValidFormFields();
 var HandlePaintData = new PaintTopicData();
 var HandleUserSession = new UserSession();
+var HandleBackNavigation = new BackNavigation();

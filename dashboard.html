@@ -19,9 +19,9 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="./js/charts.js"></script>
     <script type="module" src="./js/firebase-config.js"></script>
     <script src="./js/common.js"></script>
+    <script src="./js/charts.js"></script>
   </head>
   <body>
     <div class="main container mx-auto max-w-6xl">
@@ -90,7 +90,7 @@
           <li class="w-[50%] sm:w-auto text-center sm:text-left">
             <div
               id="topicDetailsTab"
-              class="px-6 py-2 box-border border-b-1 border-gray-600 cursor-pointer"
+              class="px-6 py-2 box-border border-b-1 border-gray-600 cursor-pointer "
               onclick="HandleTopicListingTabContents('topicDetailsTabContent')"
             >
               Topics Details
@@ -111,16 +111,23 @@
           <h2 class="text-xl font-bold">
             <span id="techstackTopicsHead"></span> Topics:
           </h2>
-          <ul
+          <div
             class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
             id="notes-data-list"
           >
-            <li></li>
-          </ul>
+        </div>
         </div>
 
-        <div class="max-w-md mx-auto hidden" id="topicOverViewTabContent">
+        <div class=" mx-auto hidden" id="topicOverViewTabContent">
           <div class="mt-4" id="chart"></div>
+          <div class="mt-4 hidden" id="OverViewYourTopicRow">
+            <h2 class="font-bold" id="OverViewYourTopicHeading">Topic <span class="font-semibold italic"></span></h2>
+            <div
+            class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            id="OverViewYourTopicList"
+          >
+        </div>
+          </div>
         </div>
       </div>
 
