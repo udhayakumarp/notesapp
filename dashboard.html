@@ -147,9 +147,223 @@
     </div>
 
     <!-- DashboardWidgets -->
-    <div id="DashboardWidgets" class="container mx-auto max-w-6xl">
+    <div id="DashboardWidgets" class="container grid grid-cols-1 sm:grid-cols-3 gap-1 mx-auto max-w-6xl">
+      
+      <!-- Topics Added recently -->
+      <div id="topicsAddedRecently" class="px-4 mt-8">
+        <h2 class="font-bold">Topics Added Recently</h2>
+        <div
+          class="box-border border-1 mt-2 sm:min-h-[280px] border-gray-100 shadow-lg rounded-md p-1"
+          id="RecentlyAddedTopicsList"
+        >
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+            <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-green-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-red-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- End of Topics Added recently -->
+
+      <!-- Ready for Interview -->
+      <div id="topicsAddedRecently" class="px-4 mt-8">
+        <h2 class="font-bold">Ready for Interview</h2>
+        <div
+          class="box-border border-1 mt-2 sm:min-h-[280px] border-gray-100 shadow-lg rounded-md p-1"
+          id="RecentlyAddedTopicsList"
+        >
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-green-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-red-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- End of Ready for Interview -->
+
+      <!-- Topics Pending items -->
+      <div id="topicsAddedRecently" class="px-4 mt-8">
+        <h2 class="font-bold">Actionable Topics</h2>
+        <div
+          class="box-border border-1 mt-2 sm:min-h-[280px] border-gray-100 shadow-lg rounded-md p-1"
+          id="RecentlyAddedTopicsList"
+        >
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-green-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-red-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">Topics</h5>
+                <p class="text-sm line-clamp-2">TechStack</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-orange-500"></span>
+              </span>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- End of Action pending -->
+      
       <!-- Actionable Items -->
-      <div id="actionableItems" class="px-4 mt-8">
+      <div id="actionableItems" class="px-4 mt-8 hidden">
         <h2 class="font-bold">Actionable Items</h2>
         <div
           class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
@@ -159,7 +373,7 @@
       <!-- End of Actionable Items -->
 
       <!-- Ready For Interview Items -->
-      <div id="actionableItems" class="px-4 mt-8">
+      <div id="readyForInterviewItems" class="px-4 mt-8 hidden">
         <h2 class="font-bold">Topic: Ready for Interview</h2>
         <div
           class="grid grid-cols-1 mt-2 lg:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 gap-4"
