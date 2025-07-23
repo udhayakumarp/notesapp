@@ -30,9 +30,12 @@ class PaintTopicData {
       });
 
       $.map(window.TechStackCovered, function (count, category) {
+        let techImgName = window.AvailableTechStackBgImg.indexOf(category.toLowerCase()) > -1 ? category.toLowerCase() : 'addtechstackbg';
+        let showTechStackName = (techImgName === 'addtechstackbg') ? false : true;
         $("#techstack-covered-list").append(`<li>
             <div class="shadow-lg cursor-pointer relative" onclick="HandlePaintData.PaintSelectedTechStack('${category}');">
-              <img src="./images/techstack/${category.toLowerCase()}.jpg" alt="" />
+              <img src="./images/techstack/${techImgName}.jpg" alt="" />
+              <h2 class="absolute bottom-2 left-2 font-bold text-xl ${showTechStackName ? 'hidden' : ''}"><span class="block text-4xl">{}</span>${category}</h2>
               <div
                 class="absolute bottom-2 right-0 pr-2 text-right block w-full"
               >
@@ -66,6 +69,7 @@ class PaintTopicData {
       }
     }
   }
+  
 
   PaintSelectedTechStack(selectedTechStack) {
     $("#ViewUserTopicRow, #backToCoveredTop").removeClass("hidden");
@@ -312,3 +316,4 @@ var HandleFormFields = new ValidFormFields();
 var HandlePaintData = new PaintTopicData();
 var HandleUserSession = new UserSession();
 var HandleBackNavigation = new BackNavigation();
+window.AvailableTechStackBgImg = ['dart', 'react', 'javascript', 'flutter', 'typescript'];
