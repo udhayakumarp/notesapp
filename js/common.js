@@ -136,22 +136,37 @@ class PaintTopicData {
     }
   }
 
-  PaintActionableTopics() {
-    $("#ActionableTopicsList").empty();
+  PaintRecentlyAddedTopics() {
+    $("#RecentlyAddedTopicsList").empty();
     const notesData = window.TopicData;
+    let topicStatuscolor;
     $.each(notesData, function (index, topic) {
+      topicStatuscolor = 'orange';
       if (
         topic.topicParked ||
         topic.topicNeedClarification ||
         topic.topicHandsOnNeeded
       ) {
-        $("#ActionableTopicsList").append(`<div
-                class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
-                onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
-              >
-                <h5 class="text-md font-bold">${topic.topicTitle}</h5>
-                <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
-              </div>`);
+       topicStatuscolor = 'red'; 
+      } else if(
+        topic.topicReadyForInterview ||
+        topic.topicCompleted
+      ) {
+        topicStatuscolor = 'green';
+      }
+      if (index < 5) {
+        $("#RecentlyAddedTopicsList").append(`<div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">${topic.topicTitle}</h5>
+            <p class="text-sm line-clamp-2">${topic.topicTechStack}</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-${topicStatuscolor}-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-${topicStatuscolor}-500"></span>
+              </span>
+          </div>
+        </div>`);
       }
     });
   }
@@ -161,16 +176,47 @@ class PaintTopicData {
     const notesData = window.TopicData;
     $.each(notesData, function (index, topic) {
       if (topic.topicReadyForInterview) {
-        $("#ReadyForInterviewTopicsList").append(`<div
-                class="topic-container box-border border-1 rounded-md p-2 cursor-pointer hover:opacity-80"
-                onclick="HandlePaintData.NavigateViewTopic('${topic.id}')"
-              >
-                <h5 class="text-md font-bold">${topic.topicTitle}</h5>
-                <p class="text-sm line-clamp-2">${topic.topicDefinition}</p>
-              </div>`);
+        $("#ReadyForInterviewTopicsList").append(`<div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">${topic.topicTitle}</h5>
+            <p class="text-sm line-clamp-2">${topic.topicTechStack}</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-green-500"></span>
+              </span>
+          </div>
+        </div>`);
       }
     });
   }
+
+  PaintActionableTopics() {
+    $("#ActionableTopicsList").empty();
+    const notesData = window.TopicData;
+    $.each(notesData, function (index, topic) {
+      if (
+        topic.topicParked ||
+        topic.topicNeedClarification ||
+        topic.topicHandsOnNeeded
+      ) {
+        $("#ActionableTopicsList").append(`<div class="grid grid-cols-1 mt-0 sm:grid-cols-12 rounded-md gap-2 p-2 odd:bg-gray-100 cursor-pointer hover:opacity-80" onclick="HandlePaintData.NavigateViewTopic('${topic.id}')">
+          <div class="col-span-11">
+            <h5 class="text-md font-bold">${topic.topicTitle}</h5>
+            <p class="text-sm line-clamp-2">${topic.topicTechStack}</p>
+          </div>
+          <div class="col-span-1 text-center">
+            <span class="relative flex size-4 left-1 top-[30%]">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex size-4 rounded-full bg-red-500"></span>
+              </span>
+          </div>
+        </div>`);
+      }
+    });
+  }
+
 
   NavigateViewTopic(topicid) {
     localStorage.setItem("SelectedTopic", topicid);
@@ -217,7 +263,7 @@ class PaintTopicData {
     if (selectedTopicData[0].topicReadyForInterview) {
       $("#topicReadyFInterviewCB").prop("checked", true);
     }
-    HandleYourViewUpdates();
+    // HandleYourViewUpdates();
   }
 
   PaintTechStackCategoryDropdown() {
